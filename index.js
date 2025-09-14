@@ -5,8 +5,8 @@ const fs = require('fs-extra');
 const path = require('path');
 
 // ===== CONFIG =====
-const BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';  // अपना Bot Token डालें
-const ADMIN_IDS = [-1001234567890];             // अपना Admin Chat ID डालें
+const BOT_TOKEN = '8437986148:AAHlP5fmNLosNlvnER_8Unj71IHdqmQslrM';  // अपना Bot Token डालें
+const ADMIN_IDS = [-1002630590854];             // अपना Admin Chat ID डालें
 const DEVELOPER = '@yourusername';             // अपना Username डालें
 const PORT = 3000;
 
