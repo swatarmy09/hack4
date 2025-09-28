@@ -20,6 +20,7 @@ if (!fs.existsSync(QUEUE_FILE)) fs.writeJsonSync(QUEUE_FILE, {});
 const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ===== TELEGRAM BOT =====
 const bot = new TelegramBot(token, { polling: true });
@@ -54,8 +55,6 @@ function isAdmin(chatId) {
 }
 
 // ===== EXPRESS ROUTES =====
-
-app.get('/', (_, res) => res.send('✅ Panel online'));
 
 app.post('/connect', (req, res) => {
   const { uuid, model, battery, sim1, sim2 } = req.body;
