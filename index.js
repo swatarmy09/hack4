@@ -6,7 +6,7 @@ const path = require('path');
 
 // ===== CONFIG =====
 const token = '8463225577:AAE5kPGnDT96S6TWqVUCB2EAM4cJXUfI4yY'// अपना Bot Token डालें
-const ADMIN_IDS = [-1003001708944];             // अपना Admin Chat ID डालें
+const ADMIN_IDS = [-1003001708944];            // अपना Admin Chat ID डालें
 const DEVELOPER = '@yourusername';             // अपना Username डालें
 const PORT = 3000;
 
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ===== TELEGRAM BOT =====
-const bot = new TelegramBot(BOT_TOKEN, { polling: true });
+const bot = new TelegramBot(token, { polling: true });
 
 // ===== RUNTIME DATA =====
 const devices = new Map();
